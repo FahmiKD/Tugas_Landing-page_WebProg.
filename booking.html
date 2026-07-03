@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking - Splash Squad</title>
+    <style>
+        :root {
+            --primary-color: #0056b3; 
+            --accent-color: #00d2ff;  
+            --text-dark: #1a1a1a;
+            --text-muted: #666666;
+            --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f4f8ff 50%, #f1f3ff 100%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .top-left-tag {
+            position: absolute;
+            top: 2px;
+            left: 8%;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary-color);
+            opacity: 0.6;
+            z-index: 101;
+            pointer-events: none;
+            animation: fadeInDown 0.8s ease-out both;
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 8%;
+            background-color: #ffffff;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            animation: fadeInDown 0.8s ease-out both;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-area img {
+            width: 45px;
+            height: 45px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-text .brand-name {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            line-height: 1;
+        }
+
+        .logo-text .brand-sub {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent-color);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+            background-color: rgba(0, 86, 179, 0.05);
+        }
+
+        .booking-page-container {
+            display: flex;
+            justify-content: center;
+            padding: 40px 8%;
+        }
+
+        .booking-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f7faff 100%);
+            width: 100%;
+            max-width: 900px;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 54, 115, 0.15);
+            position: relative;
+        }
+
+        .section-title { font-size: 1.8rem; color: var(--text-dark); margin-bottom: 20px; font-weight: 800; }
+        .section-subtitle { color: var(--primary-color); font-size: 0.9rem; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 5px; }
+
+        .booking-form-section {
+            background-color: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+        }
+        .booking-form-section h3 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+            margin-bottom: 18px;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 8px;
+            font-weight: 700;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-dark);
+        }
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        .form-group input:focus, .form-group textarea:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(0, 86, 179, 0.1);
+        }
+        
+        .grid-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+        
+        .grid-options-days {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .selection-box {
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            padding: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background-color: #ffffff;
+            user-select: none;
+        }
+        .selection-box:hover {
+            border-color: var(--primary-color);
+            background-color: #f8fafc;
+        }
+        .selection-box input {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        .selection-box span {
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        .input-subtext {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-style: italic;
+            margin-top: 4px;
+            display: block;
+        }
+
+        .btn-maps {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background-color: #22c55e;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            margin-top: 10px;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.2s;
+        }
+        .btn-maps:hover { 
+            background-color: #16a34a; 
+            transform: translateY(-1px);
+        }
+
+        .booking-footnote {
+            background-color: #fffbeb;
+            border: 1px solid #fef3c7;
+            border-left: 5px solid #f59e0b;
+            padding: 15px;
+            border-radius: 8px;
+            color: #b45309;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .btn-submit-booking {
+            width: 100%;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #004085 100%);
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1rem;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 86, 179, 0.25);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+        }
+        .btn-submit-booking:hover { 
+            transform: translateY(-3px) scale(1.01); 
+            box-shadow: 0 8px 25px rgba(0, 86, 179, 0.35);
+        }
+        .btn-submit-booking:active {
+            transform: translateY(-1px) scale(0.99);
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #ffffff 0%, #f7faff 100%);
+            width: 90%;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            transform: scale(0.8) translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .modal-content.small { max-width: 450px; padding: 35px; text-align: center; }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1) translateY(0);
+            box-shadow: 0 25px 60px rgba(0, 54, 115, 0.35);
+        }
+
+        .success-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            animation: floatAnimation 2s ease-in-out infinite;
+        }
+
+        @keyframes floatAnimation {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        footer { 
+            text-align: center; 
+            padding: 30px; 
+            font-size: 0.9rem; 
+            color: var(--text-muted); 
+            border-top: 1px solid #eeeeee; 
+            background-color: #ffffff; 
+            margin-top: 40px; 
+        }
+
+        @media (max-width: 992px) {
+            .top-left-tag { left: 50%; transform: translateX(-50%); top: 5px; }
+            nav { flex-direction: column; gap: 15px; padding-top: 25px; }
+            .grid-options { grid-template-columns: 1fr 1fr; }
+            .grid-options-days { grid-template-columns: repeat(3, 1fr); }
+            .booking-content { padding: 30px 20px; }
+        }
+
+        @media (max-width: 576px) {
+            .booking-page-container { padding: 20px 4%; }
+            .grid-options { grid-template-columns: 1fr; }
+            .grid-options-days { grid-template-columns: 1fr 1fr; }
+            .booking-form-section { padding: 15px; }
+            .modal-content.small { padding: 25px 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="top-left-tag">Booking Page</div>
+
+    <nav>
+        <div class="logo-area">
+            <img src="Logo splash squad.jpeg" alt="Logo">
+            <div class="logo-text">
+                <span class="informasi-name">Home Service</span>
+                <span class="brand-name">Splash</span>
+                <span class="brand-sub">Squad</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html">Kembali ke Home</a></li>
+        </ul>
+    </nav>
+
+    <main class="booking-page-container">
+        <div class="booking-content">
+            
+            <p class="section-subtitle">Online Reservation</p>
+            <h2 class="section-title">Formulir Booking Home Service</h2>
+            
+            <form onsubmit="event.preventDefault(); showSuccessModal();">
+                
+                <div class="booking-form-section">
+                    <h3>1. Data Diri Pelanggan</h3>
+                    <div class="form-group">
+                        <label for="fullName">Nama Lengkap:</label>
+                        <input type="text" id="fullName" placeholder="Masukkan nama lengkap Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phoneActive">Nomor WhatsApp atau Telepon Aktif:</label>
+                        <input type="tel" id="phoneActive" placeholder="Contoh: 081234567xxx" required>
+                    </div>
+                </div>
+
+                <div class="booking-form-section">
+                    <h3>2. Alamat & Lokasi Pengerjaan</h3>
+                    <div class="form-group">
+                        <label for="homeAddress">Alamat Lengkap Rumah:</label>
+                        <textarea id="homeAddress" rows="3" placeholder="Tuliskan nama jalan, nomor rumah, RT/RW, dan kecamatan" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="addressNote">Patokan Rumah:</label>
+                        <input type="text" id="addressNote" placeholder="Contoh: Di samping masjid Al-Ikhlas / pagar warna hitam" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Titik Koordinat / Tautan Lokasi:</label>
+                        <input type="text" placeholder="Tempel link Google Maps di sini (Opsional)">
+                        <a href="https://maps.google.com" target="_blank" class="btn-maps">📍 Buka Google Maps Untuk Tandai Titik</a>
+                    </div>
+                </div>
+
+                <div class="booking-form-section">
+                    <h3>3. Informasi Kendaraan</h3>
+                    <div class="form-group">
+                        <label for="carModel">Merek & Tipe Mobil:</label>
+                        <input type="text" id="carModel" placeholder="Contoh: Toyota Avanza / Honda Civic / Mazda CX-5" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="carColor">Warna Mobil:</label>
+                        <input type="text" id="carColor" placeholder="Contoh: Hitam Metalik / Putih / Merah" required>
+                    </div>
+                </div>
+
+                <div class="booking-form-section">
+                    <h3>4. Pilihan Layanan & Waktu</h3>
+                    
+                    <div class="form-group">
+                        <label>Pilihan Paket Home Service:</label>
+                        <div class="grid-options">
+                            <label class="selection-box">
+                                <input type="checkbox" name="package_service" value="squad_wash" data-price="200000" onchange="hitungTotal()">
+                                <span>Squad Wash (Rp200.000)</span>
+                            </label>
+                            <label class="selection-box">
+                                <input type="checkbox" name="package_service" value="deep_splash" data-price="150000" onchange="hitungTotal()">
+                                <span>Deep Splash (Rp150.000)</span>
+                            </label>
+                            <label class="selection-box">
+                                <input type="checkbox" name="package_service" value="interior_rescue" data-price="120000" onchange="hitungTotal()">
+                                <span>Interior Rescue (Rp120.000)</span>
+                            </label>
+                            <label class="selection-box">
+                                <input type="checkbox" name="package_service" value="squad_detailing" data-price="350000" onchange="hitungTotal()">
+                                <span>The Squad Detailing (Rp350.000)</span>
+                            </label>
+                        </div>
+                        <span class="input-subtext">* Pilih sesuai kebutuhan anda (Bisa memilih lebih dari 1 paket)</span>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label for="visitDate">Tanggal Kunjungan:</label>
+                        <input type="date" id="visitDate" required>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Waktu/Jam Pengerjaan (Hari):</label>
+                        <div class="grid-options-days">
+                            <label class="selection-box"><input type="radio" name="visit_day" value="Senin" required> <span>Senin</span></label>
+                            <label class="selection-box"><input type="radio" name="visit_day" value="Selasa"> <span>Selasa</span></label>
+                            <label class="selection-box"><input type="radio" name="visit_day" value="Rabu"> <span>Rabu</span></label>
+                            <label class="selection-box"><input type="radio" name="visit_day" value="Kamis"> <span>Kamis</span></label>
+                            <label class="selection-box"><input type="radio" name="visit_day" value="Jumat"> <span>Jumat</span></label>
+                            <label class="selection-box"><input type="radio" name="visit_day" value="Sabtu"> <span>Sabtu</span></label>
+                            <label class="selection-box"><input type="radio" name="visit_day" value="Minggu"> <span>Minggu</span></label>
+                        </div>
+                        <span class="input-subtext">* Pilih salah satu</span>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Pilihan Jam Kedatangan:</label>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <label class="selection-box">
+                                <input type="radio" name="visit_session" value="sesi1" required>
+                                <span>Sesi 1 (Pagi): Pukul 08.00 – 11.00 WIB</span>
+                            </label>
+                            <label class="selection-box">
+                                <input type="radio" name="visit_session" value="sesi2">
+                                <span>Sesi 2 (Siang): Pukul 11.00 – 14.00 WIB</span>
+                            </label>
+                            <label class="selection-box">
+                                <input type="radio" name="visit_session" value="sesi3">
+                                <span>Sesi 3 (Sore): Pukul 14.00 – 17.00 WIB</span>
+                            </label>
+                            <label class="selection-box">
+                                <input type="radio" name="visit_session" value="sesi4">
+                                <span>Sesi 4 (Malam): Pukul 17.00 – 19.15 WIB (Sesi Terakhir)</span>
+                            </label>
+                        </div>
+                        <span class="input-subtext" style="margin-top: 6px;">* Pilih salah satu</span>
+                    </div>
+                </div>
+
+                <div style="background-color: #f8fafc; border: 1px solid #cbd5e1; padding: 15px; border-radius: 8px; margin-bottom: 25px; display: flex; justify-content: space-between; align-items: center;">
+                    <span style="font-size: 1.1rem; font-weight: 600; color: var(--text-dark);">Total Estimasi Biaya:</span>
+                    <span id="tampilanTotalHarga" style="font-size: 1.4rem; font-weight: 800; color: var(--primary-color);">Rp0</span>
+                </div>
+
+                <div class="booking-footnote">
+                    ⚠️ PENTING: Saat ini layanan home service kami hanya menerima pembayaran CASH (Uang tunai) saja.
+                </div>
+
+                <button type="submit" class="btn-submit-booking">Kirim Formulir Pemesanan</button>
+            </form>
+        </div>
+    </main>
+
+    <div id="successModal" class="modal-overlay">
+        <div class="modal-content small">
+            <div class="success-icon">✅</div>
+            <h2 style="color: var(--primary-color); margin-bottom: 10px; font-weight: 800;">Pesanan akan diproses.</h2>
+            <p style="font-size: 1rem; color: var(--text-dark); margin-bottom: 5px; font-weight: 600;">Terimakasih telah mempercayai layanan kami.</p>
+            <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 25px;">Untuk info lebih lanjut bisa ditanyakan ke admin ya... Terimakasih.</p>
+            
+            <div style="background-color: #f1f6fc; border: 1px solid #e2edf9; padding: 15px; border-radius: 12px; margin-bottom: 25px;">
+                <span style="display: block; font-size: 0.95rem; color: var(--text-muted); font-weight: 600; margin-bottom: 5px;">Total Biaya Anda:</span>
+                <span id="modalTotalBiaya" style="font-size: 1.6rem; font-weight: 800; color: var(--primary-color);">Rp0</span>
+            </div>
+
+            <button onclick="closeSuccessModal()" class="btn-submit-booking" style="width: 100%;">Tutup & Kembali ke Home</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Splash Squad. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function hitungTotal() {
+            const checkboxes = document.querySelectorAll('input[name="package_service"]');
+            let totalBiaya = 0;
+
+            checkboxes.forEach(function(checkbox) {
+                if (checkbox.checked) {
+                    totalBiaya += parseInt(checkbox.getAttribute('data-price'));
+                }
+            });
+
+            const formatRupiah = new Intl.NumberFormat('id-ID').format(totalBiaya);
+            document.getElementById('tampilanTotalHarga').innerText = 'Rp' + formatRupiah;
+        }
+
+        function showSuccessModal() {
+            const totalHargaText = document.getElementById('tampilanTotalHarga').innerText;
+            document.getElementById('modalTotalBiaya').innerText = totalHargaText;
+            document.getElementById('successModal').classList.add('active');
+        }
+
+        function closeSuccessModal() {
+            document.getElementById('successModal').classList.remove('active');
+            setTimeout(() => {
+                window.location.href = 'index.html';
+            }, 400); 
+        }
+    </script>
+</body>
+</html>
